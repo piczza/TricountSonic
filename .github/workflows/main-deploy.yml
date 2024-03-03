@@ -50,7 +50,7 @@ jobs:
     - name: Generate deployment package
       run: |
         mkdir -p workspace
-        build/libs/*.jar workspace/
+        cp build/libs/*.jar workspace/
         cd workspace && zip -r integrated-work *
         cd ../ && mkdir -p deploy
         mv workspace/integrated-work.zip deploy/TricountSonic.zip
