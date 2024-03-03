@@ -48,7 +48,7 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Generate deployment package
-      run:
+      run: |
         mkdir -p workspace
 #        cp scripts/*.sh workspace/
 #        cp appspec.yml workspace/
