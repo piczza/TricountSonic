@@ -52,7 +52,7 @@ jobs:
     - name: Generate deployment package
       run: |
         mkdir -p workspace
-        cp scrips/*.sh workspace/
+        cp scripts/*.sh workspace/
         cp appspec.yml workspace/
         cp build/libs/*.jar workspace/
         cd workspace && zip -r integrated-work *
