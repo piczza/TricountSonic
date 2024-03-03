@@ -11,6 +11,9 @@ on:
   push:
     branches: [ "main" ]
 
+env:
+  S3_BUCKET_NAME: soniccount-bucket-test
+
 jobs:
   build:
 
@@ -36,3 +39,21 @@ jobs:
     
     - name: Build with Gradle 8.5
       run: gradle clean bootJar
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Generate deployment package
+      run:
+        mkdir -p workspace
+#        cp scripts/*.sh workspace/
+#        cp appspec.yml workspace/
+        cp build/libs/*.jar workspace/
+        cd workspace && zip -r integrated-work *
+        cd ../ && mkdir -p deploy
+        mv workspace/integrate-work.zip deploy/TricountSonic.zip
+      shell: bash
